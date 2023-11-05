@@ -29,3 +29,18 @@ function isValidPhone(telefone) {
     const phoneRegex = /^(\d{2})\s\d{5}-\d{4}$/;
     return phoneRegex.test(telefone);
 }
+function formatPhoneNumber(input) {
+    // Remove todos os caracteres não numéricos do valor do campo.
+    const phoneNumber = input.value.replace(/\D/g, '');
+
+    // Formata o número de telefone com parenteses para o DDD e um traço.
+    if (phoneNumber.length >= 2) {
+        input.value = `(${phoneNumber.substring(0, 2)}`;
+    }
+    if (phoneNumber.length >= 7) {
+        input.value = `(${phoneNumber.substring(0, 2)}) ${phoneNumber.substring(2, 7)}-`;
+    }
+    if (phoneNumber.length >= 11) {
+        input.value = `(${phoneNumber.substring(0, 2)}) ${phoneNumber.substring(2, 7)}-${phoneNumber.substring(7, 11)}`;
+    }
+}
