@@ -1,26 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tela Inicial</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    
-    <!-- Inclua a referência para o seu código JavaScript -->
-    <script src="js/script.js"></script>
-</head>
-<body>
-    <h1>Cadastro de Empresas</h1>
-    <form action="cadastro.php" method="post">
-        <label for="nome">Nome da Empresa:</label>
-        <input type="text" id="nome" name="nome" required>
-        <label for="setor">Setor:</label>
-        <input type="text" id="setor" name "setor" required>
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="telefone">Telefone:</label>
-        <input type="tel" id="telefone" name="telefone" required>
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" required></textarea>
-        <button type="submit">Cadastrar</button>
-    </form>
-</body>
-</html>
+function isValidForm() {
+    const nome = document.getElementById("nome").value;
+    const setor = document.getElementById("setor").value;
+    const email = document.getElementById("email").value;
+    const telefone = document.getElementById("telefone").value;
+    const descricao = document.getElementById("descricao").value;
+
+    if (!isValidEmail(email)) {
+        alert("Por favor, insira um endereço de e-mail válido.");
+        return false;
+    }
+
+    if (!isValidPhone(telefone)) {
+        alert("Por favor, insira um número de telefone válido com DDD e 9 dígitos.");
+        return false;
+    }
+
+    alert("Formulário enviado com sucesso!");
+    return true;
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function isValidPhone(telefone) {
+    // Validação para um número de telefone com DDD e 9 dígitos (xx xxxxx-xxxx).
+    const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
+    return phoneRegex.test(telefone);
+}
