@@ -3,10 +3,13 @@
 <head>
     <title>Tela Inicial</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    
+    <!-- Inclua a referência para o seu código JavaScript -->
+    <script src="js/script.js"></script>
 </head>
 <body>
     <h1>Cadastro de Empresas</h1>
-    <form action="cadastro.php" method="post">
+    <form action="cadastro.php" method="post" onsubmit="return isValidForm();">
         <label for="nome">Nome da Empresa:</label>
         <input type="text" id="nome" name="nome" required>
         <label for="setor">Setor:</label>
