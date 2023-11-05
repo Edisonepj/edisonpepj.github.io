@@ -26,6 +26,6 @@ function isValidEmail(email) {
 
 function isValidPhone(telefone) {
     // Validação para um número de telefone com DDD e 9 dígitos (xx xxxxx-xxxx).
-    const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
+    const phoneRegex = /^(\d{2})\s\d{5}-\d{4}$/;
     return phoneRegex.test(telefone);
 }
