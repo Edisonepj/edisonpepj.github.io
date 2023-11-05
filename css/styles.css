@@ -1,26 +1,27 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #2e3192, #1b1464);
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    color: #fff;
 }
 
 h1 {
     text-align: center;
     margin-bottom: 20px;
     font-size: 36px;
-    color: #333;
+    color: #fff;
 }
 
 form {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     padding: 30px;
     max-width: 400px;
     width: 100%;
@@ -41,10 +42,11 @@ input, textarea {
     border: 2px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    color: #555;
 }
 
 button {
-    background-color: #007bff;
+    background: #1b1464;
     color: #fff;
     padding: 15px 30px;
     border: none;
@@ -56,5 +58,6 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background: #0d0a36;
+    transition: background-color 0.3s;
 }
