@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function isValidPhone(telefone) {
-        // Validação para um número de telefone no formato (xx) xxxxx-xxxx.
         const phoneRegex = /^\(\d{2}\) \d{5}-\d{4}$/;
         return phoneRegex.test(telefone);
     }
@@ -37,16 +36,24 @@ document.addEventListener("DOMContentLoaded", function() {
     const telefoneInput = document.getElementById("telefone");
 
     telefoneInput.addEventListener("input", function() {
-        const input = this;
-        const inputValue = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-        if (inputValue.length >= 2) {
-            input.value = `(${inputValue.slice(0, 2)}`;
+        let input = this;
+        let inputValue = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        if (inputValue.length > 11) {
+            inputValue = inputValue.slice(0, 11);
         }
-        if (inputValue.length >= 7) {
-            input.value = `(${inputValue.slice(0, 2)}) ${inputValue.slice(2, 7)}`;
+
+        let formattedValue = "(";
+        
+        for (let i = 0; i < inputValue.length; i++) {
+            if (i === 2) {
+                formattedValue += ") ";
+            } else if (i === 7) {
+                formattedValue += "-";
+            }
+            formattedValue += inputValue[i];
         }
-        if (inputValue.length >= 11) {
-            input.value = `(${inputValue.slice(0, 2)}) ${inputValue.slice(2, 7)}-${inputValue.slice(7, 11)}`;
-        }
+
+        input.value = formattedValue;
     });
 });
