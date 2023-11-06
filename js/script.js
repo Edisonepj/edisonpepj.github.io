@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Importe as funções necessárias do SDK do Firebase
     import { initializeApp } from "firebase/app";
     import { getAnalytics } from "firebase/analytics";
+    import { getDatabase, ref, set, get } from "firebase/database";
 
     // Sua configuração do Firebase para a web
     const firebaseConfig = {
@@ -11,38 +12,46 @@ document.addEventListener("DOMContentLoaded", function() {
       storageBucket: "pi22023.appspot.com",
       messagingSenderId: "262575922279",
       appId: "1:262575922279:web:6425b7b92efb5fa14908c2",
-      measurementId: "G-ZJGMCSW9F8" // Opcional se você tiver um ID de medição
+      measurementId: "G-ZJGMCSW9F8"
     };
 
     // Inicialize o Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
 
-    const form = document.getElementById("registrationForm");
+    // Inicialize o Firebase Realtime Database
+    const db = getDatabase(app);
 
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();
+    // Exemplo de gravação de dados
+    const dadosEmpresaRef = ref(db, 'empresas');
+    const dadosEmpresa = {
+      nome: "Nome da Empresa",
+      setor: "Setor da Empresa",
+      email: "email@empresa.com",
+      telefone: "Telefone da Empresa",
+      descricao: "Descrição da Empresa"
+    };
 
-        // Validar os campos aqui
-        const nome = document.getElementById("nome").value;
-        const setor = document.getElementById("setor").value;
-        const email = document.getElementById("email").value;
-        const telefone = document.getElementById("telefone").value;
-        const descricao = document.getElementById("descricao").value;
+    set(dadosEmpresaRef, dadosEmpresa)
+      .then(() => {
+        console.log("Dados da empresa gravados com sucesso.");
+      })
+      .catch((error) => {
+        console.error("Erro ao gravar dados da empresa:", error);
+      });
 
-        // Exemplo de validação simples do campo de e-mail
-        if (!isValidEmail(email)) {
-            alert("Por favor, insira um endereço de e-mail válido.");
-            return;
+    // Exemplo de leitura de dados
+    const leituraEmpresaRef = ref(db, 'empresas');
+    get(leituraEmpresaRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const dadosEmpresaLidos = snapshot.val();
+          console.log("Dados da empresa lidos:", dadosEmpresaLidos);
+        } else {
+          console.log("Nenhum dado encontrado para a empresa.");
         }
-
-        // Enviar os dados para o servidor ou fazer outras ações aqui
-        alert("Formulário enviado com sucesso!");
-    });
-
-    // Função de validação de e-mail simples
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
+      })
+      .catch((error) => {
+        console.error("Erro ao ler dados da empresa:", error);
+      });
 });
