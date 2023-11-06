@@ -14,43 +14,40 @@ const firebaseConfig = {
   appId: "1:262575922279:web:6425b7b92efb5fa14908c2",
   measurementId: "G-ZJGMCSW9F8"
 };
-
 // Inicialize o Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.getDatabase(app);
 
-// Inicialize o Firebase Realtime Database
-const db = getDatabase(app);
+// Lidar com o envio do formulário
+const cadastroForm = document.getElementById('cadastroForm');
+cadastroForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const dadosEmpresaRef = firebase.ref(db, 'empresas');
 
-// Exemplo de gravação de dados
-const dadosEmpresaRef = ref(db, 'empresas');
-const dadosEmpresa = {
-  nome: "Nome da Empresa",
-  setor: "Setor da Empresa",
-  email: "email@empresa.com",
-  telefone: "Telefone da Empresa",
-  descricao: "Descrição da Empresa"
-};
+    // Obtenha os valores dos campos do formulário
+    const nome = document.getElementById('nome').value;
+    const setor = document.getElementById('setor').value;
+    const email = document.getElementById('email').value;
+    const telefone = document.getElementById('telefone').value;
+    const descricao = document.getElementById('descricao').value;
 
-set(dadosEmpresaRef, dadosEmpresa)
-  .then(() => {
-    console.log("Dados da empresa gravados com sucesso.");
-  })
-  .catch((error) => {
-    console.error("Erro ao gravar dados da empresa:", error);
-  });
+    // Crie um objeto com os dados do formulário
+    const dadosEmpresa = {
+        nome: nome,
+        setor: setor,
+        email: email,
+        telefone: telefone,
+        descricao: descricao
+    };
 
-// Exemplo de leitura de dados
-const leituraEmpresaRef = ref(db, 'empresas');
-get(leituraEmpresaRef)
-  .then((snapshot) => {
-    if (snapshot.exists()) {
-      const dadosEmpresaLidos = snapshot.val();
-      console.log("Dados da empresa lidos:", dadosEmpresaLidos);
-    } else {
-      console.log("Nenhum dado encontrado para a empresa.");
-    }
-  })
-  .catch((error) => {
-    console.error("Erro ao ler dados da empresa:", error);
-  });
+    // Envie os dados para o Firebase
+    firebase.set(dadosEmpresaRef, dadosEmpresa)
+        .then(() => {
+            console.log('Dados da empresa gravados com sucesso.');
+            cadastroForm.reset();
+        })
+        .catch((error) => {
+            console.error('Erro ao gravar dados da empresa:', error);
+        });
+});
+
