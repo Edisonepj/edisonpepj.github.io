@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Exemplo de Firebase no GitHub Pages</title>
+    <title>Cadastro de Empresas</title>
     <!-- Inclua a configuração do Firebase abaixo -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 </head>
 <body>
-    <h1>Exemplo de Firebase no GitHub Pages</h1>
+    <h1>Cadastro de Empresas</h1>
+
+    <!-- Formulário de Cadastro de Empresa -->
+    <form id="cadastroForm">
+        <label for="nome">Nome da Empresa:</label>
+        <input type="text" id="nome" required>
+
+        <label for="setor">Setor:</label>
+        <input type="text" id="setor" required>
+
+        <label for "email">E-mail:</label>
+        <input type="email" id="email" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" required placeholder="(xx) xxxxx-xxxx">
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" required></textarea>
+
+        <button type="submit">Cadastrar</button>
+    </form>
 
     <script>
         // Configuração do Firebase (com os valores reais)
@@ -25,38 +45,28 @@
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.getDatabase(app);
 
-        // Exemplo de gravação de dados
-        const dadosEmpresaRef = firebase.ref(db, 'empresas');
-        const dadosEmpresa = {
-            nome: "Nome da Empresa",
-            setor: "Setor da Empresa",
-            email: "email@empresa.com",
-            telefone: "Telefone da Empresa",
-            descricao: "Descrição da Empresa"
-        };
+        // Lidar com o envio do formulário
+        const cadastroForm = document.getElementById('cadastroForm');
+        cadastroForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const dadosEmpresaRef = firebase.ref(db, 'empresas');
+            const dadosEmpresa = {
+                nome: document.getElementById('nome').value,
+                setor: document.getElementById('setor').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                descricao: document.getElementById('descricao').value
+            };
 
-        firebase.set(dadosEmpresaRef, dadosEmpresa)
-            .then(() => {
-                console.log("Dados da empresa gravados com sucesso.");
-            })
-            .catch((error) => {
-                console.error("Erro ao gravar dados da empresa:", error);
-            });
-
-        // Exemplo de leitura de dados
-        const leituraEmpresaRef = firebase.ref(db, 'empresas');
-        firebase.get(leituraEmpresaRef)
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    const dadosEmpresaLidos = snapshot.val();
-                    console.log("Dados da empresa lidos:", dadosEmpresaLidos);
-                } else {
-                    console.log("Nenhum dado encontrado para a empresa.");
-                }
-            })
-            .catch((error) => {
-                console.error("Erro ao ler dados da empresa:", error);
-            });
+            firebase.set(dadosEmpresaRef, dadosEmpresa)
+                .then(() => {
+                    console.log('Dados da empresa gravados com sucesso.');
+                    cadastroForm.reset();
+                })
+                .catch((error) => {
+                    console.error('Erro ao gravar dados da empresa:', error);
+                });
+        });
     </script>
 </body>
 </html>
