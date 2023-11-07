@@ -1,0 +1,83 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(17, 54, 71));
+    margin: 0;
+}
+
+/* Estilos do contêiner principal */
+.box {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para o título */
+legend {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: dodgerblue;
+}
+
+/* Estilos para os campos de entrada e rótulos */
+.inputBox {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.labelInput {
+    display: block;
+    font-size: 18px;
+    color: dodgerblue;
+    margin-bottom: 5px;
+}
+
+.inputUser {
+    width: 90%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    color: #333;
+}
+
+/* Estilos para o botão de envio */
+#submit {
+    background: linear-gradient(to right, rgb(0, 92, 197), rgb(90, 20, 220));
+    border: none;
+    padding: 15px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+#submit:hover {
+    background: linear-gradient(to right, rgb(0, 80, 172), rgb(80, 19, 195));
+}
+
+/* Estilos para o campo de descrição do problema */
+#problema {
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    color: #333;
+    width: 92%;
+}
+
+/* Estilos para a borda do campo de entrada quando em foco */
+.inputUser:focus,
+#problema:focus {
+    border: 2px solid dodgerblue;
+}
