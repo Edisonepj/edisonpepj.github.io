@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Problemas</title>
+</head>
+<body>
+    <h1>Lista de Problemas Cadastrados</h1>
+
+    <ul id="listaProblemas"></ul>
+
+    <script>
+        // Recuperar os problemas do localStorage e exibir na página
+        const problemas = JSON.parse(localStorage.getItem('problemas')) || [];
+        const listaProblemas = document.getElementById('listaProblemas');
+
+        // Adicionar cada problema à lista
+        problemas.forEach(function (problema) {
+            const itemLista = document.createElement('li');
+            itemLista.textContent = `
+                Nome: ${problema.nome}
+                Email: ${problema.email}
+                Telefone: ${problema.telefone}
+                Setor: ${problema.setor}
+                Problema: ${problema.problema}
+            `;
+            listaProblemas.appendChild(itemLista);
+        });
+    </script>
+</body>
+</html>
